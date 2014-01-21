@@ -29,6 +29,17 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+# Remove unnecessary whitespaces from ActiveRecord or ActiveModel attributes
+# https://github.com/holli/auto_strip_attributes
+gem 'auto_strip_attributes', '~> 2.0'
+
+# Detect the mime type of a file by extension or by content
+# https://github.com/minad/mimemagic
+gem 'mimemagic'
+
+# Image manipulation for ruby
+gem 'rmagick'
+
 gem 'bootstrap-sass'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'

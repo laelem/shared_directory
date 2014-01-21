@@ -1,0 +1,13 @@
+<h2>List of jobs</h2>
+
+<%= will_paginate %>
+
+<% if @jobs.empty? %>
+  <aside>No job is present.</aside>
+<% else %>
+  <table>
+    <%= render @jobs %>
+  </table>
+<% end %>
+
+<%= will_paginate %>
