@@ -1,8 +1,5 @@
 include ApplicationHelper
 
-CLASS_ERROR = '.error'
-CLASS_SUCCESS = '.success'
-
 def sign_in(user, options={})
   if options[:no_capybara]
     # Sign in when not using Capybara.
@@ -26,5 +23,11 @@ end
 RSpec::Matchers.define :have_success_message do |message|
   match do |page|
     expect(page).to have_selector(CLASS_SUCCESS, text: message)
+  end
+end
+
+RSpec::Matchers.define :have_submit_button do |value|
+  match do |actual|
+    actual.should have_selector("input[type=submit][value='#{value}']")
   end
 end

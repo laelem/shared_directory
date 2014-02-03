@@ -29,16 +29,17 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-# Remove unnecessary whitespaces from ActiveRecord or ActiveModel attributes
-# https://github.com/holli/auto_strip_attributes
-gem 'auto_strip_attributes', '~> 2.0'
-
 # Detect the mime type of a file by extension or by content
 # https://github.com/minad/mimemagic
 gem 'mimemagic'
 
 # Image manipulation for ruby
 gem 'rmagick'
+
+# Generates fake data
+gem 'faker'
+
+gem 'factory_girl_rails', '~> 4.0'
 
 gem 'bootstrap-sass'
 gem 'will_paginate'
@@ -52,7 +53,8 @@ group :development, :test do
 end
 
 group :test do
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', require: false
+  gem 'selenium-webdriver'
   gem 'database_cleaner'
 end
 
@@ -66,7 +68,7 @@ group :doc do
 end
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby'
 
 # Use unicorn as the app server
 # gem 'unicorn'

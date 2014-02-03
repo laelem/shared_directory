@@ -12,10 +12,6 @@ class Country < ActiveRecord::Base
                               maximum: MAX_SIZE_DEFAULT_INPUT_TEXT },
                     uniqueness: { case_sensitive: false }
 
-  def Country.simple_valid_record
-    Country.new(code: "XY", name: "New Country")
-  end
-
   private
 
     def strip_attributes

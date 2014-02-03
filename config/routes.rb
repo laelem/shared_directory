@@ -1,11 +1,50 @@
 SharedDirectory::Application.routes.draw do
-  resources :sessions,      only: [:new, :create, :destroy]
-  resources :jobs,          except: 'show'
-  resources :users
-  resources :contacts
-  root  'static_pages#home'
-  match '/signin',  to: 'sessions#new',         via: 'get'
-  match '/signout', to: 'sessions#destroy',     via: 'delete'
+  root 'static_pages#home'
+
+  get 'signin', to: 'sessions#new'
+  delete 'signout', to: 'sessions#destroy'
+
+  constraints(id: /\d+/) do
+    resources :sessions, only: [:new, :create, :destroy]
+
+    resources :jobs, except: 'show' do
+      get 'page/:page',           on: :collection,  to: :index,
+                                  constraints: { page: /\d+/ }
+      get 'activate',             on: :member,      to: :toggle_status
+      get 'desactivate',          on: :member,      to: :toggle_status
+      get 'sort/:field',          on: :collection,  to: :sort, as: :sort,
+                                  constraints: { field: /(#{JOBS_SORTING_COLS.join('|')})/ }
+      get 'per_page/:number',     on: :collection,  to: :per_page, as: :per_page,
+                                  constraints: { number: /(#{JOBS_PER_PAGE.join('|')})/ }
+    end
+
+    resources :users, except: 'show' do
+      get 'page/:page',           on: :collection,  to: :index,
+                                  constraints: { page: /\d+/ }
+      get 'activate',             on: :member,      to: :toggle_status
+      get 'desactivate',          on: :member,      to: :toggle_status
+      get 'sort/:field',          on: :collection,  to: :sort, as: :sort,
+                                  constraints: { field: /(#{USERS_SORTING_COLS.join('|')})/ }
+      get 'per_page/:number',     on: :collection,  to: :per_page, as: :per_page,
+                                  constraints: { number: /(#{USERS_PER_PAGE.join('|')})/ }
+    end
+
+    resources :contacts do
+      get 'page/:page',           on: :collection,  to: :index,
+                                  constraints: { page: /\d+/ }
+      get 'activate',             on: :member,      to: :toggle_status
+      get 'desactivate',          on: :member,      to: :toggle_status
+      get 'sort/:field',          on: :collection,  to: :sort, as: :sort,
+                                  constraints: { field: /(#{CONTACTS_SORTING_COLS.join('|')})/ }
+      get 'per_page/:number',     on: :collection,  to: :per_page, as: :per_page,
+                                  constraints: { number: /(#{CONTACTS_PER_PAGE.join('|')})/ }
+    end
+  end
+
+  get '404', to: 'errors#not_found', as: :not_found
+  get '422', to: 'errors#server_error'
+  get '500', to: 'errors#server_error'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

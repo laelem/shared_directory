@@ -1,0 +1,14 @@
+<% provide(:title, "Sign in") %>
+
+<%= form_tag sessions_path, id: "signin_form" do %>
+  <h1>Sign in</h1>
+  <%= render 'layouts/flash' %>
+
+  <%= label_tag :email %>
+  <%= text_field_tag :email, params[:email], autofocus: true, maxlength: MAX_SIZE_DEFAULT_INPUT_TEXT %>
+
+  <%= label_tag :password %>
+  <%= password_field_tag :password, params[:password], maxlength: MAX_SIZE_USER_PASSWORD %>
+
+  <%= submit_tag "Sign in", class: "button" %>
+<% end %>

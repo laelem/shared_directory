@@ -1,0 +1,25 @@
+<tr id="row_<%= user.id %>" >
+  <td><%= user.first_name %></td>
+  <td><%= user.last_name %></td>
+  <td><%= user.email %></td>
+  <% if user.active? %>
+    <td class="active">Yes</td>
+    <td class="action">
+      <%= unless current_user? user then link_to "Desactivate", desactivate_user_path(user) end %>
+    </td>
+  <% else %>
+    <td class="active">No</td>
+    <td class="action">
+      <%= unless current_user? user then link_to "Activate", activate_user_path(user) end %>
+    </td>
+  <% end %>
+  <td class="action"><%= link_to "Edit", edit_user_path(user) %></td>
+  <td class="action">
+    <% unless current_user? user %>
+      <%= link_to "Delete", user,
+        method: :delete,
+        data: { confirm: "Are you sure ?" },
+        id: "delete_#{user.id}" %>
+    <% end %>
+  </td>
+</tr>

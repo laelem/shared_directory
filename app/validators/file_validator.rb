@@ -13,8 +13,8 @@ class FileValidator < ActiveModel::EachValidator
     if options[:extension]
       if options[:extension][:inclusion]
         ext = File.extname(value).downcase.split('.').last
+        permitted_ext = options[:extension][:inclusion].join(", ")
         unless options[:extension][:inclusion].include? ext
-          permitted_ext = options[:extension][:inclusion].join(",")
           error_msg = "has a wrong type (permitted extensions : #{permitted_ext})"
           record.errors[attribute] << error_msg
           return

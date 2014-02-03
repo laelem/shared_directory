@@ -1,0 +1,260 @@
+@import "mixin_var";
+
+#header{
+  position: fixed;
+  z-index: 2;
+  width: 100%;
+  height: $width_header;
+  background-color: black;
+  text-align: center;
+  h1{
+    padding: 0;
+    height: $width_header;
+    line-height: $width_header;
+    text-transform: uppercase;
+    font-weight: normal;
+    a{
+      color: white;
+      &:hover{
+        color: #ddd;
+      }
+    }
+  }
+}
+
+#nav{
+  position: fixed;
+  width: $width_nav;
+  height: 100%;
+  margin-top: $width_header;
+  background-color: #ddd;
+  text-align: center;
+  font-size: 1.3em;
+  border-right: 3px solid black;
+  ul{
+    margin: 0;
+    list-style: none;
+    li{
+      padding: 0.5em 0;
+      a:hover{
+        color: #333;
+      }
+    }
+  }
+}
+
+#main{
+  position: relative;
+  top: $width_header;
+  padding: 1.5em;
+}
+#container{
+  @extend #main;
+  @include box_sizing;
+  margin-left: $width_nav;
+}
+#contain{
+  position: relative;
+  h1{
+    padding-top: 0;
+    padding-bottom: 0.2em;
+    font-size: 2.3em;
+  }
+}
+
+#signin_form{
+  width: 400px;
+  margin: auto;
+  h1{
+    text-align: center;
+    font-size: 2.5em;
+  }
+  label{
+    display: block;
+    padding-bottom: 0.3em;
+  }
+  input[type="submit"]{
+    display: block;
+    margin: 1em auto 0 auto;
+  }
+  input:not([type="submit"]) {
+    margin-bottom: 1em;
+    width: 100%;
+  }
+}
+
+@mixin alert{
+  width: 100%;
+  margin: 1em 0;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  border: 1px solid;
+  @include box_sizing;
+}
+.alert-error{
+  @include alert;
+  background-color: #F2DEDE;
+  border-color: #EED3D7;
+  color: #B94A48;
+}
+.alert-success{
+  @include alert;
+  background-color: #DFF0D8;
+  border-color: #D6E9C6;
+  color: #468847;
+}
+.alert-notice{
+  @include alert;
+  background-color: #FCF8E3;
+  border-color: #FBEED5;
+  color: #C09853;
+}
+
+div.pagination{
+  width: 100%;
+  text-align: center;
+  ul{
+    margin: 0;
+    li{
+      list-style: none;
+      display: inline-block;
+      a{
+        display: block;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        background-color: #ddd;
+        border: 1px solid #bbb;
+        &:hover{
+          background-color: #eee;
+        }
+      }
+      &.prev a, &.next a{
+        width: 90px;
+      }
+      &.active a{
+        background-color: #555;
+        color: white;
+      }
+    }
+  }
+}
+
+.per_page{
+  padding: 1.5em 0;
+  text-align: right;
+  a{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 13px;
+    text-align: center;
+    background-color: #ddd;
+    border: 1px solid #bbb;
+    &:hover{
+      background-color: #eee;
+    }
+    &.current{
+      background-color: #555;
+      color: white;
+    }
+  }
+}
+
+table{
+  width: 100%;
+  margin: 2em 0;
+  table-layout: fixed;
+  col.action, col.active{
+    width: 100px;
+  }
+  tr:hover td{
+    background-color: #eee;
+  }
+  th.sort, td.action{
+    padding: 0;
+    a{
+      display: block;
+      padding: 4px;
+      &:hover{
+        background-color: #ccc;
+      }
+    }
+  }
+  td.action, td.active{
+    text-align: center;
+  }
+}
+
+.button{
+  vertical-align: middle;
+  padding: $pad_button_top $pad_button_left;
+  font-size: 1.2em;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  &:link, &:visited{
+    color: white;
+  }
+  &:hover{
+    background-color: #222;
+  }
+  &.global_action{
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
+a.button{
+  padding: $pad_button_top+1 $pad_button_left+3;
+}
+
+.link{
+  display: inline;
+  padding: 0;
+  border: none;
+  background: none;
+  color: black;
+  font-size: 1em;
+  vertical-align: middle;
+}
+
+#contain form{
+  h1{
+    font-weight: normal;
+  }
+  .content_fields{
+    padding: 1em 1.5em;
+    background-color: #eee;
+    border: 1px solid #aaa;
+    & > div{
+      margin: 1em 0;
+      label:first-child{
+        display: inline-block;
+        width: 80px;
+      }
+    }
+  }
+  .actions{
+    margin-top: 1em;
+    text-align: right;
+  }
+  .field_with_errors{
+    display: inline;
+    label{
+      color: red;
+    }
+  }
+}
+
+#contain{
+  .new_user .content_fields div > label:first-child,
+  .edit_user .content_fields div > label:first-child{
+    width: 150px;
+    text-align: right;
+    padding-right: 10px;
+  }
+}

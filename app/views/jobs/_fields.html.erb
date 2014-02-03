@@ -1,0 +1,24 @@
+<%= render 'shared/error_messages', object: f.object %>
+
+<section class="content_fields">
+  <div>
+    <%= f.label :active %>
+    <%= f.radio_button :active, true %>
+    <%= label_tag :job_active_true, "Yes" %>
+    <%= f.radio_button :active, false %>
+    <%= label_tag :job_active_false, "No" %>
+  </div>
+
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name,
+      autofocus: true,
+      size: SIZE_DEFAULT_INPUT_TEXT,
+      maxlength: MAX_SIZE_DEFAULT_INPUT_TEXT %>
+  </div>
+</section>
+
+<div class="actions">
+  <%= f.submit "Save", class: "button" %>
+  <%= link_to "Back", jobs_path, class: "button" %>
+</div>

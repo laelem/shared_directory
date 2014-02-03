@@ -15,12 +15,14 @@ class User < ActiveRecord::Base
                           length: { maximum: MAX_SIZE_DEFAULT_INPUT_TEXT },
                           format: { with: VALID_EMAIL_REGEX },
                           uniqueness: { case_sensitive: false },
-                          confirmation: true
-  validates :email_confirmation, presence: true
+                          confirmation: true,
+                          on: :create
+  validates :email_confirmation, presence: true, on: :create
 
   has_secure_password
   validates :password,    length: { minimum: MIN_SIZE_USER_PASSWORD,
-                                    maximum: MAX_SIZE_USER_PASSWORD }
+                                    maximum: MAX_SIZE_USER_PASSWORD },
+                          on: :create
 
   validates :active,      inclusion: [true, false]
   validates :admin,       inclusion: [true, false]
@@ -31,11 +33,6 @@ class User < ActiveRecord::Base
 
   def User.encrypt(token)
     Digest::SHA1.hexdigest(token.to_s)
-  end
-
-  def User.simple_valid_record
-    User.new(email: "user@example.com", email_confirmation: "user@example.com", password: "foobar",
-      password_confirmation: "foobar", first_name: "John", last_name: "Doe")
   end
 
   private

@@ -1,4 +1,3 @@
-include ContactsHelper
 require 'RMagick'
 include Magick
 require 'securerandom'
@@ -10,7 +9,7 @@ class Contact < ActiveRecord::Base
   before_destroy :delete_upload
 
   validates :active,      inclusion: [true, false]
-  validates :civility,    inclusion: civ.keys
+  validates :civility,    inclusion: CIV.keys
   validates :first_name,  presence: true,
                           length: { minimum: MIN_SIZE_CONTACT_FIRST_NAME,
                                     maximum: MAX_SIZE_CONTACT_FIRST_NAME },
@@ -31,8 +30,8 @@ class Contact < ActiveRecord::Base
   belongs_to :country
   validates_associated :country
 
-  validates :phone_number, allow_blank: true, format: { with: /\A(\d{10})\z/ }
-  validates :mobile_number, allow_blank: true, format: { with: /\A(\d{10})\z/ }
+  validates :phone_number, allow_blank: true, format: { with: /\A(\d{6,15})\z/ }
+  validates :mobile_number, allow_blank: true, format: { with: /\A(\d{6,15})\z/ }
   validates :email,       presence: true,
                           length: { maximum: MAX_SIZE_DEFAULT_INPUT_TEXT },
                           format: { with: VALID_EMAIL_REGEX },
@@ -57,19 +56,17 @@ class Contact < ActiveRecord::Base
     end
   end
 
-  def Contact.simple_valid_record
-    Contact.new(civility: "M", first_name: "John", last_name: "Doe", date_of_birth: "19/06/1988",
-      email: "user@example.com", jobs: [Job.simple_valid_record])
-  end
-
   private
 
     def strip_attributes
       %w(address zip_code city email website comment date_of_birth_before_type_cast).each do |attr|
         self.send("#{attr}").strip! unless self.send("#{attr}").nil?
       end
-      %w(first_name last_name phone_number mobile_number).each do |attr|
+      %w(first_name last_name).each do |attr|
         self.send("#{attr}=", self.send("#{attr}").squish) unless self.send("#{attr}").nil?
+      end
+      %w(phone_number mobile_number).each do |attr|
+        self.send("#{attr}").gsub!(/\s/, '') unless self.send("#{attr}").nil?
       end
     end
 

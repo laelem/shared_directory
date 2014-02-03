@@ -4,15 +4,8 @@ describe "Authentication" do
 
   subject { page }
 
-  describe "signin page" do
-    before { visit signin_path }
-
-    it { should have_content('Sign in') }
-    it { should have_title('Sign in') }
-  end
-
   describe "signin" do
-    before { visit root_url }
+    before { visit signin_path }
 
     describe "with invalid information" do
 
@@ -25,13 +18,13 @@ describe "Authentication" do
         end
       end
 
-      describe "with all fields blank" do
+      context "with all fields blank" do
         before { click_button "Sign in" }
         it { should have_error_message('Email and password can\'t be blank') }
         it_should_behave_like "an invalid signin"
       end
 
-      describe "with email blank" do
+      context "with email blank" do
         before do
           fill_in "Password", with: "foobar"
           click_button "Sign in"
@@ -40,7 +33,7 @@ describe "Authentication" do
         it_should_behave_like "an invalid signin"
       end
 
-      describe "with password blank" do
+      context "with password blank" do
         before do
           fill_in "Email", with: "foobar"
           click_button "Sign in"
@@ -49,7 +42,7 @@ describe "Authentication" do
         it_should_behave_like "an invalid signin"
       end
 
-      describe "with an invalid email format" do
+      context "with an invalid email format" do
         before do
           fill_in "Email", with: "foobar"
           fill_in "Password", with: "foobar"
@@ -59,9 +52,9 @@ describe "Authentication" do
         it_should_behave_like "an invalid signin"
       end
 
-      describe "with an inexistant email" do
+      context "with an inexistant email" do
         before do
-          fill_in "Email", with: "user@example.com"
+          fill_in "Email", with: "wrong_email@example.com"
           fill_in "Password", with: "foobar"
           click_button "Sign in"
         end
@@ -69,7 +62,7 @@ describe "Authentication" do
         it_should_behave_like "an invalid signin"
       end
 
-      describe "with a right email but a wrong password" do
+      context "with a right email but a wrong password" do
         let(:user) { FactoryGirl.create(:user) }
         before do
           fill_in "Email", with: user.email
@@ -81,11 +74,15 @@ describe "Authentication" do
       end
     end
 
-    describe "with valid information" do
+    context "with valid information" do
       let(:user) { FactoryGirl.create(:user) }
-      before { sign_in user }
+      before do
+        fill_in "Email", with: user.email
+        fill_in "Password", with: user.password
+        click_button "Sign in"
+      end
 
-      it { should have_link('Sign out',    href: signout_path) }
+      it { should have_link('Sign out', href: signout_path) }
     end
   end
 

@@ -5,7 +5,7 @@ include Magick
 describe Contact do
 
   before do
-    @contact = @obj = Contact.simple_valid_record
+    @contact = @obj = FactoryGirl.build(:contact)
   end
 
   subject { @contact }
@@ -112,11 +112,8 @@ describe Contact do
 
     context "when an inactive job is present" do
       error_message = "can't contain inactive jobs"
-      let(:job) { Job.simple_valid_record }
-      before do
-        job.active = false
-        @contact.jobs = [job]
-      end
+      let(:job) { FactoryGirl.build(:job, active: false) }
+      before { @contact.jobs = [job] }
 
       it "should not be valid and render the error : #{error_message}" do
         expect(@contact).to_not be_valid
@@ -175,13 +172,11 @@ describe Contact do
   end
 
   describe "phone number / mobile number" do
-    it_should_behave_like "a squished data", "phone_number"
-    it_should_behave_like "a squished data", "mobile_number"
     ["phone_number", "mobile_number"].each do |number|
 
       context "when #{number} has not a valid format" do
         it "should not be valid" do
-          datas = ["a", "a"*10, "3"*11, "3"*9, "3333 33333", "3;;;;;;;;3"]
+          datas = ["a", "a"*10, "3"*16, "3"*5, "3;;;;;;;;3"]
           datas.each do |invalid_data|
             @contact.send("#{number}=", invalid_data)
             expect(@contact).to_not be_valid
@@ -192,8 +187,20 @@ describe Contact do
 
       context "when #{number} has a valid format" do
         it "should be valid" do
-          @contact.send("#{number}=", "3"*10)
-          expect(@contact).to be_valid
+          datas = ["3"*10, "3"*6, "3"*15, "33    33 33 33 33"]
+          datas.each do |valid_data|
+            @contact.send("#{number}=", valid_data)
+            expect(@contact).to be_valid
+          end
+        end
+      end
+
+      describe "save format" do
+        it "should be saved without spaces" do
+          @contact.send("#{number}=", "01     05 67 64 61")
+          @contact.save
+          @contact.reload
+          expect(@contact.send("#{number}")).to eq "0105676461"
         end
       end
     end
@@ -202,7 +209,20 @@ describe Contact do
   describe "email" do
     it_should_behave_like "a stripped data", "email"
     it_should_behave_like "a non-blank data", "email"
-    it_should_behave_like "a unique data", "email"
+
+    context "when email already exists" do
+      error_message = "has already been taken"
+      before do
+        job = FactoryGirl.build(:job, name: "Developer test")
+        obj_with_same_data = FactoryGirl.create(:contact, jobs: [job])
+        @contact.email.upcase!
+      end
+
+      it "should not be valid and render the error : #{error_message}" do
+        expect(@contact).to_not be_valid
+        expect(@contact.errors[:email]).to include(error_message)
+      end
+    end
 
     context "when email is too long" do
       error_message = "is too long (maximum is #{MAX_SIZE_DEFAULT_INPUT_TEXT} characters)"

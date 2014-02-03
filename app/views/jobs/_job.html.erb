@@ -1,3 +1,12 @@
-<tr id="job_<%= job.id %>" <% unless job.active %> class="inactive" <% end %>>
+<tr id="row_<%= job.id %>" >
   <td><%= job.name %></td>
+  <% if job.active? %>
+    <td class="active">Yes</td>
+    <td class="action"><%= link_to "Desactivate", desactivate_job_path(job) %></td>
+  <% else %>
+    <td class="active">No</td>
+    <td class="action"><%= link_to "Activate", activate_job_path(job) %></td>
+  <% end %>
+  <td class="action"><%= link_to "Edit", edit_job_path(job) %></td>
+  <td class="action"><%= link_to "Delete", job, method: :delete, data: { confirm: "Are you sure ?" }, id: "delete_#{job.id}" %></td>
 </tr>

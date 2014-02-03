@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Country do
 
   before do
-    @country = @obj = Country.simple_valid_record
+    @country = @obj = FactoryGirl.build(:country)
   end
 
   subject { @country }
@@ -17,7 +17,7 @@ describe Country do
     it_should_behave_like "a squished data", "code"
     it_should_behave_like "a non-blank data", "code"
     it_should_behave_like "a data with an exact length", "code", SIZE_COUNTRY_CODE
-    it_should_behave_like "a unique data", "code"
+    it_should_behave_like "a unique data", "code", model: :country
 
     context "when code contains non-alphabetic characters (including spaces)" do
       it "should not be valid" do
@@ -46,7 +46,7 @@ describe Country do
     it_should_behave_like "a non-blank data", "name"
     it_should_behave_like "a data with a minimal length", "name", MIN_SIZE_COUNTRY_NAME
     it_should_behave_like "a data with a maximal length", "name", MAX_SIZE_DEFAULT_INPUT_TEXT
-    it_should_behave_like "a unique data", "name"
+    it_should_behave_like "a unique data", "name", model: :country
 
     describe "save format" do
       let(:mixed_case_name) { "abC ygH" }

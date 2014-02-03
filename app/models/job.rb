@@ -11,8 +11,9 @@ class Job < ActiveRecord::Base
                       uniqueness: { case_sensitive: false }
   validates :active,  inclusion: [true, false]
 
-  def Job.simple_valid_record
-    Job.new(name: "Developer")
+  def Job.save_format(job)
+    job.strip_attributes
+    job.format_data
   end
 
   private

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe User do
 
   before do
-    @user = @obj = User.simple_valid_record
+    @user = @obj = FactoryGirl.build(:user)
   end
 
   subject { @user }
@@ -27,7 +27,7 @@ describe User do
   describe "email" do
     it_should_behave_like "a stripped data", "email"
     it_should_behave_like "a non-blank data", "email", confirmation: true
-    it_should_behave_like "a unique data", "email", confirmation: true
+    it_should_behave_like "a unique data", "email", confirmation: true, model: :user
 
     context "when email is too long" do
       error_message = "is too long (maximum is #{MAX_SIZE_DEFAULT_INPUT_TEXT} characters)"

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Job do
 
   before do
-    @job = @obj = Job.simple_valid_record
+    @job = @obj = FactoryGirl.build(:job)
   end
 
   subject { @job }
@@ -17,7 +17,7 @@ describe Job do
   describe "name" do
     it_should_behave_like "a squished data", "name"
     it_should_behave_like "a non-blank data", "name"
-    it_should_behave_like "a unique data", "name"
+    it_should_behave_like "a unique data", "name", model: :job
     it_should_behave_like "a data that contains only alphabetic characters", "name"
     it_should_behave_like "a data with a minimal length", "name", MIN_SIZE_JOB_NAME
     it_should_behave_like "a data with a maximal length", "name"

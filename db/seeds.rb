@@ -6,10 +6,11 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Country.delete_all
 open(Rails.root.join('doc', 'seed_countries.txt')) do |countries|
   countries.read.each_line do |country|
     code, name = country.chomp.split("|")
     Country.create!(code: code, name: name)
   end
 end
+
+FactoryGirl.create(:user, email: "email@example.com", email_confirmation: "email@example.com")

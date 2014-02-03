@@ -1,0 +1,12 @@
+@mixin box_sizing {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+$width_header: 55px;
+$width_nav: 250px;
+
+$pad_button_top: 8px;
+$pad_button_left: 25px;
+
