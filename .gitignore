@@ -1,6 +1,9 @@
 # Ignore bundler config.
 /.bundle
 
+# Ignore upload directories
+/public/upload/contact/photo/*
+
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
