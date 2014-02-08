@@ -1,0 +1,23 @@
+%tr{id: "row_#{contact.id}"}
+  %td.active= contact.active? ? "Yes" : "No"
+  %td= contact.first_name
+  %td= contact.last_name
+  %td= contact.email
+  %td= contact.jobs.map{|job| job.name}.join(', ')
+
+  - if current_user.admin?
+    %td.action
+      - if contact.active?
+        = link_to "Desactivate", desactivate_contact_path(contact)
+      - else
+        = link_to "Activate", activate_contact_path(contact)
+
+  %td.action= link_to "Show", contact
+
+  - if current_user.admin?
+    %td.action= link_to "Edit", edit_contact_path(contact)
+    %td.action
+      = link_to "Delete", contact,
+        method: :delete,
+        data: { confirm: "Are you sure ?" },
+        id: "delete_#{contact.id}"

@@ -1,0 +1,5 @@
+- provide(:title, "Edit a user")
+
+= form_for @user do |f|
+  %h1 Edit a user
+  = render 'fields', f: f, action: "edit"

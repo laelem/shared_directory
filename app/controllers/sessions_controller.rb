@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(email: params[:email].downcase)
-    if user && user.authenticate(params[:password])
+    if user && user.active? && user.authenticate(params[:password])
       sign_in user
       redirect_back_or root_path
     else
@@ -17,6 +17,8 @@ class SessionsController < ApplicationController
         flash.now[:error] = 'Password can\'t be blank'
       elsif !VALID_EMAIL_REGEX.match params[:email]
         flash.now[:error] = 'Email is invalid'
+      elsif user && !user.active?
+        flash.now[:error] = 'Your account is not active. Please contact an administrator.'
       else
         flash.now[:error] = 'Invalid email/password combination'
       end

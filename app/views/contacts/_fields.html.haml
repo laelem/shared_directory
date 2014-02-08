@@ -1,0 +1,94 @@
+= render 'shared/error_messages', object: f.object
+= render 'shared/message_required'
+
+%fieldset.content_fields
+  %legend General informations
+  %div
+    = f.label :active, class: "req"
+    = f.radio_button :active, true
+    = label_tag :contact_active_true, "Yes"
+    = f.radio_button :active, false
+    = label_tag :contact_active_false, "No"
+  %div
+    = f.label :civility, class: "req"
+    - CIV.keys.each do |civ|
+      = f.radio_button :civility, civ
+      = label_tag "contact_civility_#{civ.downcase}".to_sym, civ
+  %div
+    = f.label :first_name, class: "req"
+    = f.text_field :first_name,
+      size: SIZE_DEFAULT_INPUT_TEXT,
+      maxlength: MAX_SIZE_CONTACT_FIRST_NAME
+  %div
+    = f.label :last_name, class: "req"
+    = f.text_field :last_name,
+      size: SIZE_DEFAULT_INPUT_TEXT,
+      maxlength: MAX_SIZE_CONTACT_LAST_NAME
+  %div
+    = f.label :date_of_birth, class: "req"
+    = f.date_field :date_of_birth, value: @contact.date_of_birth_before_type_cast
+    %span.help dd/mm/yyyy
+
+%fieldset.content_fields
+  %legend Particulars
+  %div
+    = f.label :address
+    = f.text_field :address,
+      size: SIZE_DEFAULT_INPUT_TEXT,
+      maxlength: MAX_SIZE_DEFAULT_INPUT_TEXT
+  %div
+    = f.label :zip_code
+    = f.text_field :zip_code,
+      size: SIZE_ZIP_CODE,
+      maxlength: SIZE_ZIP_CODE
+  %div
+    = f.label :city
+    = f.text_field :city,
+      size: SIZE_DEFAULT_INPUT_TEXT,
+      maxlength: MAX_SIZE_DEFAULT_INPUT_TEXT
+  %div
+    = f.label :country_id
+    = f.collection_select :country_id, @countries, :id, :name, {include_blank: true}
+  %div
+    = f.label :phone_number
+    = f.telephone_field :phone_number,
+      size: MAX_SIZE_TEL,
+      maxlength: MAX_SIZE_TEL
+  %div
+    = f.label :mobile_number
+    = f.telephone_field :mobile_number,
+      size: MAX_SIZE_TEL,
+      maxlength: MAX_SIZE_TEL
+
+%fieldset.content_fields
+  %legend Additional
+  %div
+    = f.label :jobs, Contact.human_attribute_name(:jobs), class: "req"
+    = f.collection_select :job_ids, @jobs, :id, :name, {},
+      { multiple: true, size: 7, id: "contact_jobs" }
+  %div
+    = f.label :email, class: "req"
+    = f.email_field :email,
+      size: SIZE_DEFAULT_INPUT_TEXT,
+      maxlength: MAX_SIZE_DEFAULT_INPUT_TEXT
+  %div
+    = f.label :upload_photo
+    - if @contact.photo and File.file? Rails.root.join('public', @contact.photo).to_s
+      = image_tag File.join('', @contact.photo), size: "100x100", alt: "Photo"
+    = f.file_field :upload_photo, accept: 'image/png, image/gif, image/jpeg'
+    %div.help
+      Permitted content : png, gif, jpg
+      %br/
+      = "Max size : #{MAX_SIZE_CONTACT_PHOTO/1.megabytes}Mb (#{MAX_SIZE_CONTACT_PHOTO})"
+  %div
+    = f.label :website
+    = f.url_field :website,
+      size: SIZE_DEFAULT_INPUT_TEXT,
+      maxlength: MAX_SIZE_DEFAULT_INPUT_TEXT
+  %div
+    = f.label :comment
+    = f.text_area :comment, size: SIZE_DEFAULT_TEXT_AREA
+
+.actions
+  = f.submit "Save", class: "button"
+  = link_to "Back", contacts_path, class: "button"

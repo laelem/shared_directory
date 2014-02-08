@@ -1,0 +1,10 @@
+%tr{id: "row_#{job.id}"}
+  %td= job.name
+  - if job.active?
+    %td.active Yes
+    %td.action= link_to "Desactivate", desactivate_job_path(job)
+  - else
+    %td.active No
+    %td.action= link_to "Activate", activate_job_path(job)
+  %td.action= link_to "Edit", edit_job_path(job)
+  %td.action= link_to "Delete", job, method: :delete, data: { confirm: "Are you sure ?" }, id: "delete_#{job.id}"

@@ -1,0 +1,23 @@
+!!! 5
+%html
+  %head
+    %title= full_title(yield(:title))
+    = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+    = render 'layouts/shim'
+  %body
+    = render 'layouts/header'
+    - if signed_in?
+      = render 'layouts/nav'
+      %section#container
+        #contain
+          = yield
+          = debug(params) if Rails.env.development?
+          %pre= "Jobs session : #{session[:jobs]}" if Rails.env.development?
+          %pre= "Users session : #{session[:users]}" if Rails.env.development?
+          %pre= "Contacts session : #{session[:contacts]}" if Rails.env.development?
+    - else
+      %section#main
+        = yield
+        = debug(params) if Rails.env.development?

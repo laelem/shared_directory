@@ -1,0 +1,64 @@
+= render 'shared/error_messages', object: f.object
+= render 'shared/message_required'
+
+%section.content_fields
+  %div
+    = f.label :first_name, class: "req"
+    = f.text_field :first_name,
+      autofocus: true,
+      size: SIZE_DEFAULT_INPUT_TEXT,
+      maxlength: MAX_SIZE_USER_FIRST_NAME
+
+  %div
+    = f.label :last_name, class: "req"
+    = f.text_field :last_name,
+      size: SIZE_DEFAULT_INPUT_TEXT,
+      maxlength: MAX_SIZE_USER_LAST_NAME
+
+  %div
+    = f.label :active, class: "req"
+    = f.radio_button :active, true
+    = label_tag :user_active_true, "Yes"
+    = f.radio_button :active, false
+    = label_tag :user_active_false, "No"
+
+  %div
+    = f.label :admin, class: "req"
+    = f.radio_button :admin, true
+    = label_tag :user_admin_true, "Yes"
+    = f.radio_button :admin, false
+    = label_tag :user_admin_fae, "No"
+
+  - if action == "new"
+    %div
+      = f.label :email, class: "req"
+      = f.email_field :email,
+        size: SIZE_DEFAULT_INPUT_TEXT,
+        maxlength: MAX_SIZE_DEFAULT_INPUT_TEXT
+
+    %div
+      = f.label :email_confirmation, class: "req"
+      = f.email_field :email_confirmation,
+        size: SIZE_DEFAULT_INPUT_TEXT,
+        maxlength: MAX_SIZE_DEFAULT_INPUT_TEXT
+
+    %div
+      = f.label :password, class: "req"
+      = f.password_field :password,
+        autocomplete: "off",
+        size: SIZE_DEFAULT_INPUT_TEXT,
+        maxlength: MAX_SIZE_USER_PASSWORD
+
+    %div
+      = f.label :password_confirmation, class: "req"
+      = f.password_field :password_confirmation,
+        size: SIZE_DEFAULT_INPUT_TEXT,
+        maxlength: MAX_SIZE_USER_PASSWORD
+  - else
+    %div
+      = f.label :email
+      = @user.email
+
+%div.actions
+  = f.submit "Save", class: "button"
+  = link_to "Back", users_path, class: "button"

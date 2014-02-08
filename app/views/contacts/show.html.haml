@@ -1,0 +1,64 @@
+- provide(:title, "Show a contact")
+
+%section#show_page
+  %h1= @contact.first_name + ' ' + @contact.last_name
+
+  %section.content_fields
+    %h2 General informations
+    - if @contact.photo and File.file? Rails.root.join('public', @contact.photo).to_s
+      = image_tag File.join('', @contact.photo), size: "100x100", alt: "Photo"
+    %dl
+      %div
+        %dt= Contact.human_attribute_name(:active)
+        %dd= @contact.active? ? "Yes" : "No"
+      %div
+        %dt= Contact.human_attribute_name(:civility)
+        %dd= @contact.civility
+      %div
+        %dt= Contact.human_attribute_name(:date_of_birth)
+        %dd= @contact.date_of_birth
+    %div.clear
+
+  %section.content_fields
+    %h2 Particulars
+    %dl
+      %div
+        %dt= Contact.human_attribute_name(:address)
+        %dd
+          - if %w(address zip_code city country).inject(true){|i,j| i && @contact[j.to_sym].blank? }
+            = content_tag(:em, "N/A")
+          - else
+            = @contact.address if @contact.address
+            = tag(:br) if @contact.address
+            = @contact.zip_code + ' ' if @contact.zip_code
+            = @contact.city if @contact.city
+            = ' - ' if (@contact.city || @contact.zip_code) && @contact.country
+            = @contact.country.name.upcase if @contact.country
+      %div
+        %dt= Contact.human_attribute_name(:phone_number)
+        %dd= @contact.phone_number || content_tag(:em, "N/A")
+      %div
+        %dt= Contact.human_attribute_name(:mobile_number)
+        %dd= @contact.mobile_number || content_tag(:em, "N/A")
+
+  %section.content_fields
+    %h2 Additional
+    %dl
+      %div
+        %dt= Contact.human_attribute_name(:jobs)
+        %dd= simple_format(@contact.jobs.map{|job| job.name}.join("\r\n"), {}, wrapper_tag: "div")
+      %div
+        %dt= Contact.human_attribute_name(:email)
+        %dd= @contact.email
+      %div
+        %dt= Contact.human_attribute_name(:website)
+        %dd= @contact.website || content_tag(:em, "N/A")
+
+      - if @contact.comment
+        %br/
+        %div.comment
+          %dt= Contact.human_attribute_name(:comment)
+          %dd= simple_format(@contact.comment)
+
+  .actions
+    = link_to "Back", contacts_path, class: "button"

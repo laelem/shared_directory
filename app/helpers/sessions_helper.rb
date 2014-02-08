@@ -31,6 +31,12 @@ module SessionsHelper
     end
   end
 
+  def admin_user
+    unless current_user.admin?
+      redirect_to :not_found
+    end
+  end
+
   def sign_out
     self.current_user = nil
     cookies.delete(:remember_token)

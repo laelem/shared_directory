@@ -10,15 +10,15 @@ module ApplicationHelper
     end
   end
 
-  def display_sort(item, field)
+  def display_sort(item, field, model)
+    str = eval(model).human_attribute_name(field.to_sym)
     if defined? session[item][:sort][:field] and session[item][:sort][:field] == field
       if session[item][:sort][:type] == 'asc'
-        '<span>&darr;</span> '
+        str = '<span>&darr;</span> ' + str
       else
-        '<span>&uarr;</span> '
+        str = '<span>&uarr;</span> ' + str
       end
-    else
-      ''
     end
+    return str.html_safe
   end
 end

@@ -1,0 +1,5 @@
+- provide(:title, "Add a contact")
+
+= form_for @contact do |f|
+  %h1 Add a contact
+  = render 'fields', f: f, action: "new"

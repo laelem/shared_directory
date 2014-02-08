@@ -1,0 +1,39 @@
+%h1 List of users
+
+- unless @users.empty?
+  %aside= pluralize(@users.count, "user")
+
+= link_to "Add a user", new_user_path, class: "button global_action"
+
+= render 'layouts/flash'
+
+- if @users.empty?
+  %aside No user is present.
+- else
+
+  = will_paginate @users, inner_window: 2
+
+  %table
+    %colgroup
+      %col.first_name
+      %col.last_name
+      %col.email
+      %col.active
+      %col.action
+      %col.action
+      %col.action
+    %tr
+      %th.sort
+        = link_to display_sort(:users, 'first_name', 'User'), sort_users_path("first_name")
+      %th.sort
+        = link_to display_sort(:users, 'last_name', 'User'), sort_users_path("last_name")
+      %th.sort
+        = link_to display_sort(:users, 'email', 'User'), sort_users_path("email")
+      %th.sort
+        = link_to display_sort(:users, 'active', 'User'), sort_users_path("active")
+      %th{colspan: "3"} Actions
+    = render @users
+
+  = will_paginate @users, inner_window: 2
+
+  = render 'per_page'

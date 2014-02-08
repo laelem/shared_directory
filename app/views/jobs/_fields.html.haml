@@ -1,0 +1,21 @@
+= render 'shared/error_messages', object: f.object
+= render 'shared/message_required'
+
+%section.content_fields
+  %div
+    = f.label :active, class: "req"
+    = f.radio_button :active, true
+    = label_tag :job_active_true, "Yes"
+    = f.radio_button :active, false
+    = label_tag :job_active_false, "No"
+
+  %div
+    = f.label :name, class: "req"
+    = f.text_field :name,
+      autofocus: true,
+      size: SIZE_DEFAULT_INPUT_TEXT,
+      maxlength: MAX_SIZE_DEFAULT_INPUT_TEXT
+
+.actions
+  = f.submit "Save", class: "button"
+  = link_to "Back", jobs_path, class: "button"

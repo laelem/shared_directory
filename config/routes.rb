@@ -38,6 +38,7 @@ SharedDirectory::Application.routes.draw do
                                   constraints: { field: /(#{CONTACTS_SORTING_COLS.join('|')})/ }
       get 'per_page/:number',     on: :collection,  to: :per_page, as: :per_page,
                                   constraints: { number: /(#{CONTACTS_PER_PAGE.join('|')})/ }
+      post 'filter',              on: :collection, to: :filter
     end
   end
 

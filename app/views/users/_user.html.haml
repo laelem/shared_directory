@@ -1,0 +1,17 @@
+%tr{id: "row_#{user.id}"}
+  %td= user.first_name
+  %td= user.last_name
+  %td= user.email
+  - if user.active?
+    %td.active Yes
+    %td.action
+      = link_to "Desactivate", desactivate_user_path(user) unless current_user? user
+  - else
+    %td.active No
+    %td.action
+      = link_to "Activate", activate_user_path(user) unless current_user? user
+  %td.action= link_to "Edit", edit_user_path(user)
+  %td.action
+    - unless current_user? user
+      = link_to "Delete", user, method: :delete,
+        data: { confirm: "Are you sure ?" }, id: "delete_#{user.id}"

@@ -45,6 +45,8 @@ gem 'bootstrap-sass'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 
+gem 'haml'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec'

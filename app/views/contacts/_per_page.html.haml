@@ -1,0 +1,8 @@
+%section.per_page
+  Per page :
+  - CONTACTS_PER_PAGE.each do |number|
+    - if (session[:contacts][:per_page] == @contacts.count and number == "all")                       |
+    or (session[:contacts][:per_page] != @contacts.count and number == session[:contacts][:per_page]) |
+      = link_to number, per_page_contacts_path(number), class: "current"
+    - else
+      = link_to number, per_page_contacts_path(number)

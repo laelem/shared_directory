@@ -1,0 +1,51 @@
+%h1 List of contacts
+
+- unless @contacts.empty?
+  %aside= pluralize(@contacts.count, "contact")
+
+= render 'filters'
+
+- if current_user.admin?
+  = link_to "Add a contact", new_contact_path, class: "button global_action"
+
+= render 'layouts/flash'
+
+- if @contacts.empty?
+  %aside No contact is present.
+- else
+
+  = will_paginate @contacts, inner_window: 2
+
+  %table#contacts_list
+    %colgroup
+      %col.active
+      %col.first_name
+      %col.last_name
+      %col.email
+      %col.jobs
+      %col.action
+      - if current_user.admin?
+        %col.action
+        %col.action
+        %col.action
+    %tr
+      %th.sort
+        = link_to display_sort(:contacts, 'active', 'Contact'), sort_contacts_path("active")
+      %th.sort
+        = link_to display_sort(:contacts, 'first_name', 'Contact'), sort_contacts_path("first_name")
+      %th.sort
+        = link_to display_sort(:contacts, 'last_name', 'Contact'), sort_contacts_path("last_name")
+      %th.sort
+        = link_to display_sort(:contacts, 'email', 'Contact'), sort_contacts_path("email")
+      %th= Contact.human_attribute_name(:jobs)
+
+      - if current_user.admin?
+        %th{colspan: "4"} Actions
+      - else
+        %th Actions
+
+    = render @contacts
+
+  = will_paginate @contacts, inner_window: 2
+
+  = render 'per_page'

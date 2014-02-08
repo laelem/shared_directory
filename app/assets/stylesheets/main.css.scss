@@ -106,7 +106,7 @@
 .alert-notice{
   @include alert;
   background-color: #FCF8E3;
-  border-color: #FBEED5;
+  border-color: #FED99B;
   color: #C09853;
 }
 
@@ -172,11 +172,16 @@ table{
   tr:hover td{
     background-color: #eee;
   }
+  td{
+    overflow: hidden;
+  }
   th.sort, td.action{
+    overflow: hidden;
     padding: 0;
     a{
       display: block;
-      padding: 4px;
+      margin: -10em;
+      padding: 10em;
       &:hover{
         background-color: #ccc;
       }
@@ -211,6 +216,23 @@ table{
 a.button{
   padding: $pad_button_top+1 $pad_button_left+3;
 }
+.small_button{
+  vertical-align: middle;
+  background-color: #ddd;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  padding: $pad_small_button_top $pad_small_button_left;
+  &:link, &:visited{
+    color: black;
+  }
+  &:hover{
+    background-color: #fff;
+  }
+}
+a.small_button{
+  padding: $pad_small_button_top+1 $pad_small_button_left+3;
+}
 
 .link{
   display: inline;
@@ -222,7 +244,7 @@ a.button{
   vertical-align: middle;
 }
 
-#contain form{
+#contain form, #show_page{
   h1{
     font-weight: normal;
   }
@@ -230,17 +252,101 @@ a.button{
     padding: 1em 1.5em;
     background-color: #eee;
     border: 1px solid #aaa;
-    & > div{
-      margin: 1em 0;
-      label:first-child{
-        display: inline-block;
-        width: 80px;
-      }
-    }
   }
   .actions{
     margin-top: 1em;
     text-align: right;
+  }
+}
+
+#show_page{
+  .content_fields{
+    margin-top: 1em;
+    h2{
+      font-weight: normal;
+      padding-top: 0;
+      padding-bottom: 0.3em;
+      margin-bottom: 1em;
+      border-bottom: 1px solid #aaa;
+    }
+    dl{
+      margin: 0;
+      & > div{
+        margin: 0.5em 0;
+      }
+    }
+    dt, dd{
+      display: inline-block;
+      vertical-align: top;
+    }
+    dt{
+      width: 150px;
+      margin: 0;
+      text-align: right;
+    }
+    dt:after{
+      content: " : "
+    }
+    dd{
+      margin: 0 0 0 1em;
+    }
+    img{
+      float: left;
+    }
+    .comment dt{
+      text-align: left;
+    }
+    .comment dd{
+      display: block;
+      margin: 0;
+      text-align: justify;
+    }
+  }
+}
+#contain form{
+  span.req{
+    color: #CB0101;
+    font-size: 1.2em;
+  }
+  .help{
+    color: #666;
+    font-style: italic;
+  }
+  div.help{
+    margin-left: 176px;
+  }
+  fieldset{
+    margin-top: 1em;
+  }
+  .content_fields{
+    legend{
+      padding: 0 5px;
+      font-size: 1.3em;
+      background-color: #555;
+      color: #fff;
+      border: 1px solid #aaa;
+    }
+    & > div{
+      margin: 1em 0;
+      label:first-child{
+        display: inline-block;
+        vertical-align: middle;
+        width: 160px;
+        padding-right: 10px;
+        text-align: right;
+      }
+      label.req:after{
+        content: ' *';
+        @extend span.req
+      }
+    }
+    option[selected=selected]{
+      background-color: #555;
+      color: #fff;
+    }
+    img{
+      vertical-align: middle;
+    }
   }
   .field_with_errors{
     display: inline;
@@ -250,11 +356,59 @@ a.button{
   }
 }
 
-#contain{
-  .new_user .content_fields div > label:first-child,
-  .edit_user .content_fields div > label:first-child{
-    width: 150px;
-    text-align: right;
-    padding-right: 10px;
+#contacts_list{
+  col.action{
+    width: 80px;
+  }
+  col.active{
+    width: 50px;
+  }
+  col.phone_number, col.mobile_number{
+    width: 90px;
+  }
+  col.first_name, col.last_name{
+    width: 90px;
+  }
+}
+
+.filters{
+  position: relative;
+  margin: 1em 0;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  background-color: #333;
+  color: white;
+  h2{
+    padding: 0.3em 0;
+    margin-bottom: 0.5em;
+    border-bottom: 1px dashed #ddd;
+    font-weight: normal;
+  }
+  & > div{
+    margin: 0.5em 0;
+    & > label{
+      display: inline-block;
+      vertical-align: middle;
+      width: 80px;
+      padding-right: 0.5em;
+      text-align: right;
+    }
+    input:not([type="submit"]){
+      padding: 2px 4px;
+    }
+  }
+  .current{
+    background-color: #96C186;
+  }
+  .reset{
+    background-color: #DD8686;
+  }
+  .reset:hover{
+    background-color: #DC9B9B;
+  }
+  #reset_all{
+    position: absolute;
+    top: 0.8em;
+    right: 0.8em;
   }
 }

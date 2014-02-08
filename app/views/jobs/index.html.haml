@@ -1,0 +1,33 @@
+%h1 List of jobs
+
+- unless @jobs.empty?
+  %aside= pluralize(@jobs.count, "job")
+
+= link_to "Add a job", new_job_path, class: "button global_action"
+
+= render 'layouts/flash'
+
+- if @jobs.empty?
+  %aside No job is present
+- else
+
+  = will_paginate @jobs, inner_window: 2
+
+  %table
+    %colgroup
+      %col.name
+      %col.active
+      %col.action
+      %col.action
+      %col.action
+    %tr
+      %th.sort
+        = link_to display_sort(:jobs, 'name', 'Job'), sort_jobs_path("name")
+      %th.sort
+        = link_to display_sort(:jobs, 'active', 'Job'), sort_jobs_path("active")
+      %th{colspan: "3"} Actions
+    = render @jobs
+
+  = will_paginate @jobs, inner_window: 2
+
+  = render 'per_page'

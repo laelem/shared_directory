@@ -1,0 +1,6 @@
+- if object.errors.any?
+  .alert-error
+    %p= "The form contains #{pluralize(object.errors.keys.count, "error")}"
+    %ul
+      - object.errors.to_hash(true).each do |key, messages|
+        %li= messages.first

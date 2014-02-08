@@ -1,23 +1,31 @@
 require 'open-uri'
 
+class FakeUploadedfile
+  attr_accessor :original_filename, :tempfile
+  def initialize(tempfile, original_filename)
+    @tempfile = tempfile
+    @original_filename = original_filename
+  end
+end
+
+def create_photo
+  file = Tempfile.open('fake')
+  File.open(file, "wb") do |f|
+    f.write(open("http://lorempixel.com/100/100/people").read)
+  end
+  return FakeUploadedfile.new(file, 'fake.jpg')
+end
+
 def numbers_to_letters(n)
   n.to_s.split(//).map{ |d| ('a'..'z').to_a[d.to_i] }.join
 end
 
 def random_phone_number
-  '0' + rand(1..5).to_s + (1..8).inject(""){ |number, n| number + rand(9).to_s }
+  '0' + rand(1..5).to_s + (['']*8).map{ rand(9).to_s }.join
 end
 
 def random_mobile_number
-  '0' + rand(6..7).to_s + (1..8).inject(""){ |number, n| number + rand(9).to_s }
-end
-
-def create_photo
-  filename = File.join(PATH_FAKE_FILES, "photo_tmp.jpg")
-  File.open(filename, "wb") do |f|
-    f.write(open("http://lorempixel.com/100/100/people").read)
-  end
-  return File.open(filename)
+  '0' + rand(6..7).to_s + (['']*8).map{ rand(9).to_s }.join
 end
 
 FactoryGirl.define do
@@ -28,7 +36,7 @@ FactoryGirl.define do
   end
 
   factory :job do
-    name { |n| Faker::Name.title + " " + numbers_to_letters(n) }
+    name { |n| Faker::Name.title }
 
     trait :sample do
       sequence(:active) { |n| n % 3 }
@@ -81,7 +89,7 @@ FactoryGirl.define do
 
       sequence(:upload_photo) { |n| if (n+2)%3 == 0 then nil else create_photo end }
       sequence(:website)      { |n| if (n+2)%3 == 0 then '' else Faker::Internet.url end }
-      sequence(:comment)      { |n| if (n+2)%3 == 0 then '' else Faker::Lorem.sentences.join(' ') end }
+      sequence(:comment)      { |n| if (n+2)%3 == 0 then '' else Faker::Lorem.paragraphs.join("\r\n")[0..499] end }
     end
   end
 end

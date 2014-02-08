@@ -13,4 +13,7 @@ open(Rails.root.join('doc', 'seed_countries.txt')) do |countries|
   end
 end
 
-FactoryGirl.create(:user, email: "email@example.com", email_confirmation: "email@example.com")
+FactoryGirl.create(:user,
+  email: "simple_user@example.com", email_confirmation: "simple_user@example.com")
+FactoryGirl.create(:user,
+  email: "admin@example.com", email_confirmation: "admin@example.com", admin: true)

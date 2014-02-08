@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
-  before_action :signed_in_user, :init_jobs_session
+  before_action :signed_in_user, :admin_user, :init_jobs_session
   before_action :find_job, only: [:edit, :update, :destroy, :toggle_status]
 
   def index
@@ -71,6 +71,6 @@ class JobsController < ApplicationController
     end
 
     def find_job
-      Job.find(params[:id])
+      @job = Job.find(params[:id])
     end
 end

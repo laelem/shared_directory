@@ -21,15 +21,18 @@ SIZE_COUNTRY_CODE = 2
 MIN_SIZE_COUNTRY_NAME = 3
 
 # CONTACT
-CIV = { "M" => "Monsieur", "Mme" => "Madame", "Mlle" => "Mademoiselle"}
+CIV = { "Mr" => "Mister", "Mrs" => "Missus", "Ms" => "Miss"}
 MIN_SIZE_CONTACT_FIRST_NAME = 2
 MAX_SIZE_CONTACT_FIRST_NAME = 50
 MIN_SIZE_CONTACT_LAST_NAME = 2
 MAX_SIZE_CONTACT_LAST_NAME = 50
 MAX_SIZE_CONTACT_COMMENT = 500
+SIZE_ZIP_CODE = 5
+MIN_SIZE_TEL = 6
+MAX_SIZE_TEL = 15
 # UPLOAD
 MAX_SIZE_CONTACT_PHOTO = 2.megabytes
-UPLOAD_PATH_CONTACT_PHOTO = Rails.root.join('public', 'upload', 'contact', 'photo').to_s
+UPLOAD_PATH_CONTACT_PHOTO = File.join('upload', 'contact', 'photo').to_s
 ROWS_IMG_CONTACT_PHOTO = 100
 COLS_IMG_CONTACT_PHOTO = 100
 
@@ -41,6 +44,7 @@ COLS_IMG_CONTACT_PHOTO = 100
 CLASS_ERROR = '.error'
 CLASS_SUCCESS = '.success'
 SIZE_DEFAULT_INPUT_TEXT = 50
+SIZE_DEFAULT_TEXT_AREA = "50x3"
 
 # JOBS
 JOBS_SORTING_COLS = ["name", "active"]

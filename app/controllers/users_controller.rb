@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :signed_in_user, :init_users_session
+  before_action :signed_in_user, :admin_user, :init_users_session
   before_action :find_user, only: [:edit, :update, :destroy, :toggle_status]
   before_action :current_user_access, only: [:destroy, :toggle_status]
 

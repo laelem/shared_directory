@@ -1,0 +1,5 @@
+- provide(:title, "Edit a contact")
+
+= form_for @contact do |f|
+  %h1 Edit a contact
+  = render 'fields', f: f, action: "edit"

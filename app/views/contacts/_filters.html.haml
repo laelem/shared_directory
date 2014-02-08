@@ -1,0 +1,22 @@
+= form_tag filter_contacts_path, class: "filters" do
+  %h2 Filters
+  %div
+    = label_tag :active
+    = submit_tag "Yes", name: "filter[active]", class: "small_button#{current_filter(:active, "Yes")}"
+    = submit_tag "No", name: "filter[active]", class: "small_button#{current_filter(:active, "No")}"
+    = submit_tag "Reset", name: "filter[active]", class: "small_button reset"
+  %div
+    = label_tag :last_name
+    - ('A'..'Z').each do |letter|
+      = submit_tag letter, name: "filter[last_name]", class: "small_button #{current_filter(:last_name, letter)}"
+    = submit_tag "Reset", name: "filter[last_name]", class: "small_button reset"
+  %div
+    = label_tag :filter_email_value, Contact.human_attribute_name(:email)
+    = text_field_tag 'filter[email_value]',
+      session[:contacts][:filter][:email] ? session[:contacts][:filter][:email][:value] : nil,
+      size: SIZE_DEFAULT_INPUT_TEXT,
+      maxlength: MAX_SIZE_DEFAULT_INPUT_TEXT,
+      class: session[:contacts][:filter][:email] ? 'current' : ''
+    = submit_tag "OK", name: "filter[email]", class: "small_button"
+    = submit_tag "Reset", name: "filter[email]", class: "small_button reset"
+  = submit_tag "Reset all", name: "filter[reset]", id: "reset_all", class: "small_button reset"
