@@ -62,7 +62,7 @@ FactoryGirl.define do
   end
 
   factory :contact do
-    civility "M"
+    civility "Mr"
     first_name "John"
     last_name "Doe"
     date_of_birth "19/06/1988"

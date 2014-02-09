@@ -28,11 +28,11 @@ ActiveRecord::Schema.define(version: 20140117101133) do
     t.string   "phone_number",  limit: 10
     t.string   "mobile_number", limit: 10
     t.string   "email",                                   null: false
+    t.string   "photo"
     t.string   "website"
     t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "photo"
     t.integer  "country_id"
   end
 
