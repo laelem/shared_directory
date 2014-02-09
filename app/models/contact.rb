@@ -4,7 +4,7 @@ require 'securerandom'
 
 class Contact < ActiveRecord::Base
   before_validation :strip_attributes
-  before_save :update_upload, on: :update
+  before_save :update_upload
   before_save :format_data, :process_upload
   before_destroy :delete_upload
   after_find :format_date
@@ -99,12 +99,14 @@ class Contact < ActiveRecord::Base
 
     def update_upload
       existing = Contact.find_by_id(self.id)
-      if upload_photo.nil?
-        self.photo = existing.photo
-      else
-        unless photo.nil?
-          existing_file = Rails.root.join('public', photo).to_s
-          if File.file? existing_file then File.unlink existing_file end
+      if existing
+        if upload_photo.nil?
+          self.photo = existing.photo
+        else
+          unless photo.nil?
+            existing_file = Rails.root.join('public', photo).to_s
+            if File.file? existing_file then File.unlink existing_file end
+          end
         end
       end
     end
