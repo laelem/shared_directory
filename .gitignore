@@ -3,6 +3,7 @@
 
 # Ignore upload directories
 /public/upload/contact/photo/*
+!/public/upload/contact/photo/.keep
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
