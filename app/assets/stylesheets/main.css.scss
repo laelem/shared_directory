@@ -83,6 +83,12 @@
   }
 }
 
+#notice_app{
+  @extend .alert-error;
+  width: 300px;
+  text-align: center;
+}
+
 @mixin alert{
   width: 100%;
   margin: 1em 0;

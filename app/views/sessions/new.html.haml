@@ -1,5 +1,16 @@
 - provide(:title, "Sign in")
 
+%section#notice_app
+  %p
+    Cette application a été développé dans le but de monter en compétence sur les technologies
+    Ruby on Rails et d'en faire la démonstration.
+  %p
+    Le code source ainsi qu'une documentation sont disponibles
+    %a{title: "Dépôt github", href: "https://github.com/laelem/shared_directory"} ici.
+  %p
+    %div Simple utilisateur : simple_user@example.com / foobar
+    %div Administrateur : (me demander par mail : lemen.laetitia@gmail.com)
+
 = form_tag sessions_path, id: "signin_form" do
   %h1 Sign in
   = render 'layouts/flash'
