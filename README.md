@@ -2,10 +2,10 @@
 
 Cette application a été développé dans le but de monter en compétence sur les technologies Ruby on Rails et d'en faire la démonstration. Basé sur un cahier des charges fourni lors d'une formation en entreprise, elle couvre de nombreux besoins actuels de clients.
 
-En voici les accès :
-[http://laelem-shared-directory.herokuapp.com](http://laelem-shared-directory.herokuapp.com)
-Simple utilisateur : simple_user@example.com / foobar
-Administrateur : (me demander par mail)
+En voici les accès : 
+[http://laelem-shared-directory.herokuapp.com](http://laelem-shared-directory.herokuapp.com) 
+Simple utilisateur : simple_user@example.com / foobar 
+Administrateur : (me demander par mail) 
 
 
 ## Description fonctionnelle
@@ -44,12 +44,12 @@ Bien que l'aspect graphique soit très sobre, un soin particulier a été donné
 
 ## Description technique
 
-L'application a été développé avec Ruby 2 et Rails 4, géré avec RVM.
-Hébergement : Heroku
-Base de données : PostgreSQL
-Tests : Rspec, FactoryGirl, Faker
-Intégration : Haml, Sass
-Gestion des images : MimeMagic, RMagick
+L'application a été développé avec Ruby 2 et Rails 4, géré avec RVM. 
+Hébergement : Heroku 
+Base de données : PostgreSQL 
+Tests : Rspec, FactoryGirl, Faker 
+Intégration : Haml, Sass 
+Gestion des images : MimeMagic, RMagick 
 
 
 ## TODO
