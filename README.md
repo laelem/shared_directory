@@ -57,4 +57,3 @@ Gestion des images : MimeMagic, RMagick
 * Internationalisation pour inclure le français
 * Possibilité de supprimer la photo dans le formulaire d'édition du contact
 * Reprise des tests sur les modèles et développement de tests controllers/views/integration
-
