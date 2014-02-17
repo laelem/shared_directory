@@ -1,6 +1,6 @@
 # Annuaire partagé
 
-Cette application a été développé dans le but de monter en compétence sur les technologies Ruby on Rails et d'en faire la démonstration. Basé sur un cahier des charges fourni lors d'une formation en entreprise, elle couvre de nombreux besoins actuels de clients.
+Cette application a été développée dans le but de monter en compétence sur les technologies Ruby on Rails et d'en faire la démonstration. Basé sur un cahier des charges fourni lors d'une formation en entreprise, elle couvre de nombreux besoins actuels de clients.
 
 En voici les accès :  
 [http://laelem-shared-directory.herokuapp.com](http://laelem-shared-directory.herokuapp.com)  

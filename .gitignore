@@ -17,3 +17,4 @@ database.yml
 .DS_Store
 .idea
 .secret
+/db/seeds.rb
